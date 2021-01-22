@@ -1,9 +1,14 @@
 pipeline {
     agent any
+	tools{
+		maven 'maven3.6'
+		 docker 'docker'
+	}
     environment {
         containerName = ""
         container_version = "1.0.0.${BUILD_ID}"
         dockerTag = "${containerName}:${container_version}"
+	    
 	registry = "shraddhal/tomcatserver-jenkinsanddocker-local"
     	registryCredential ='76599700-71c5-4af4-b805-1bcd97a088e4'
     }
