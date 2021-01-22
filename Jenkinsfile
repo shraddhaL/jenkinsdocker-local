@@ -4,47 +4,47 @@ pipeline {
         containerName = ""
         container_version = "1.0.0.${BUILD_ID}"
         dockerTag = "${containerName}:${container_version}"
+	registry = "shraddhal/tomcatserver-jenkinsanddocker-local"
+    	registryCredential ='76599700-71c5-4af4-b805-1bcd97a088e4'
     }
     stages{
         
         stage('Clone repository') {
 			   steps {	       
 				 checkout scm }
+	}
         
-			   }
-        
-        stage('Build') {
+       stage('Build') {
 			   steps {	       
-				 bat 'rm target/roshambo.war'
-                 bat  'rm -rf target/roshambo' 
-               
-               }
+				/*  bat 'rm target/roshambo.war'
+                 		bat  'rm -rf target/roshambo' */
+               			bat 'mvn clean package'
+               } 
         
-			   }
+	}
         
         
         stage ('Build Container') {
             steps {
-                sh 'docker build -f "Dockerfile" --no-cache -t ${dockerTag} .'
-                //sh 'docker build -f "Dockerfile" -t ${dockerTag} .'
+		    dockerImage  = docker.build registry + ":$BUILD_NUMBER"
                   }
              }
+	    
         stage('Docker Push') {
             // agent any
             steps {
-             withCredentials([usernamePassword(credentialsId: 'dockerhub', passwordVariable: 'dockerHubPassword', usernameVariable: 'dockerHubUser')]) {
-             sh "docker login -u ${env.dockerHubUser} -p ${env.dockerHubPassword}"
-             sh 'docker push ${dockerTag}'
+		     docker.withRegistry( '', registryCredential ) {
+        	     dockerImage.push()
              }
         }
       }
-        stage('Docker Cleanup') {
+	    
+        stage('Docker Tomcat server') {
               steps {
-                sh "docker images ${dockerTag} -q | tee ./xxx"
-            sh 'docker rmi `cat ./xxx` --force ||exit 0'
+               		//bat 'docker stop mytomcat'
+			//bat 'docker rm mytomcat'
+			bat 'docker run -d --name mytomcat -p 9090:8080 shraddhal/tomcatserver'
             }
         }
-        
     }
-} 
-         
+}
