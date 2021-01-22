@@ -46,5 +46,11 @@ pipeline {
 			bat 'docker run -d --name mytomcat -p 9090:8080 shraddhal/tomcatserver'
             }
         }
+	    
+	 stage('archive') {
+              steps {
+               		archive 'target/*.war'
+            }
+        }    
     }
 }
