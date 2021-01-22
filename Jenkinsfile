@@ -31,15 +31,18 @@ pipeline {
         
         stage ('Build Container') {
             steps {
-		    dockerImage  = docker.build registry + ":$BUILD_NUMBER"
+		    script{dockerImage  = docker.build registry + ":$BUILD_NUMBER"
+			  }
                   }
              }
 	    
         stage('Docker Push') {
             // agent any
             steps {
-		     docker.withRegistry( '', registryCredential ) {
-        	     dockerImage.push()
+		    script{
+			    docker.withRegistry( '', registryCredential ) {
+        	     	    dockerImage.push()
+			    }
              }
         }
       }
