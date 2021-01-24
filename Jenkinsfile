@@ -55,7 +55,7 @@ pipeline {
 			//bat 'docker rm mytomcat'
 			//bat 'docker run -d --name mytomcat -p 9090:8080 registry + ":$BUILD_NUMBER"'
 		      
-		       docker.image(registry + ":$BUILD_NUMBER").withRun('-p 9090:8080')
+		      docker.image(registry + ":$BUILD_NUMBER").withRun('-p 9090:8080'){}
             }
         }
 	 
