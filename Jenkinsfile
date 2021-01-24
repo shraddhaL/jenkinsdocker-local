@@ -51,9 +51,9 @@ pipeline {
 	    
       stage('Docker Tomcat server') {
               steps {
-               		//bat 'docker stop mytomcat'
-			//bat 'docker rm mytomcat'
-			bat 'docker run -d --name mytomcat -p 9090:8080 registry + ":latest"'
+               		bat 'docker stop mytomcat'
+			bat 'docker rm mytomcat'
+			bat 'docker run -d --name mytomcat -p 9090:8080 shraddhal/tomcatserver-jenkinsanddocker-local:latest'
 		      
 		      //docker.image(registry + ":$BUILD_NUMBER").withRun('-p 9090:8080'){}
             }
