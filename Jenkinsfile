@@ -21,7 +21,7 @@ pipeline {
         
        stage('Build') {
 			   steps {	       
-				  bat 'del /f target/roshambo.war'
+				  bat 'del  target/roshambo.war'
                  		bat  'rmdir target/roshambo /S /Q'
                			bat 'mvn clean package'
                } 
