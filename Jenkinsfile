@@ -42,7 +42,7 @@ pipeline {
 		    script{
 			    docker.withRegistry( 'https://registry.hub.docker.com', registryCredential ) {
 
-            app.push("latest")
+            app.push()
 			    }
              }
         }
