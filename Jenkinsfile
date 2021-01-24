@@ -52,7 +52,7 @@ pipeline {
               steps {
                		//bat 'docker stop mytomcat'
 			//bat 'docker rm mytomcat'
-			bat 'docker run -d --name mytomcat -p 9090:8080 shraddhal/tomcatserver-jenkinsanddocker-local'
+			bat 'docker run -d --name mytomcat -p 9090:8080 shraddhal/tomcatserver-jenkinsanddocker-local:${BUILD_ID}'
             }
         }
 	    
