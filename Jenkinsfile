@@ -61,7 +61,7 @@ pipeline {
 	 
 	 stage('archive') {
               steps {
-               		archive 'target/*.war'
+               		archiveArtifacts  'target/*.war'
             }
         }    
     }
