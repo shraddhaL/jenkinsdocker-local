@@ -49,14 +49,14 @@ pipeline {
         }
       }
 	    
-      /*  stage('Docker Tomcat server') {
+      stage('Docker Tomcat server') {
               steps {
                		//bat 'docker stop mytomcat'
 			//bat 'docker rm mytomcat'
 			bat 'docker run -d --name mytomcat -p 9090:8080 registry + ":$BUILD_NUMBER"'
             }
         }
-	    */
+	 
 	 stage('archive') {
               steps {
                		archive 'target/*.war'
