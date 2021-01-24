@@ -32,7 +32,7 @@ pipeline {
         
         stage ('Build Container') {
             steps {
-		    script{dockerImage  = docker.build registry + ":latest"
+		    script{dockerImage  = docker.build registry + ":${BUILD_NUMBER}"
 			  }
                   }
              }
@@ -53,7 +53,7 @@ pipeline {
               steps {
                		//bat 'docker stop mytomcat'
 			//bat 'docker rm mytomcat'
-			//bat 'docker run -d --name mytomcat -p 9090:8080 registry + ":$BUILD_NUMBER"'
+			bat 'docker run -d --name mytomcat -p 9090:8080 registry + ":latest"'
 		      
 		      //docker.image(registry + ":$BUILD_NUMBER").withRun('-p 9090:8080'){}
             }
