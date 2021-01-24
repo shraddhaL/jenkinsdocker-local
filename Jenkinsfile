@@ -2,7 +2,7 @@ pipeline {
     agent any
 	tools{
 		maven 'maven3.6'
-		 docker 'docker'
+		dockerTool 'docker'
 	}
     environment {
         containerName = ""
