@@ -20,9 +20,10 @@ pipeline {
 	}
         
        stage('Build') {
-			   steps {	       
-				  bat 'del filename  -- removes   target/roshambo.war'
-                 		bat  'rmdir /s target/roshambo'
+			   steps {	   bat 'cd target'    
+				  bat 'del filename  -- removes   roshambo.war'
+                 		bat  'rmdir /s roshambo'
+				   bat 'cd ..'
                			bat 'mvn clean package'
                } 
         
